@@ -1,0 +1,3 @@
+Small utility for managing Linkbot Hubs. 
+
+This server should live and run as a daemon process on Linkbot Hubs.
