@@ -81,11 +81,11 @@ def handle_all(module, function):
         else:
             return "Cannot stop module: {}".format(module)
 
-    if function == 'stop':
+    if function == 'start':
         if module in ['linkbotd', 'prex']:
             return handle_start(module)
         else:
-            return "Cannot stop module: {}".format(module)
+            return "Cannot start module: {}".format(module)
 
     if function == 'reboot':
         try:
@@ -132,4 +132,4 @@ def handle_start(module):
     except Exception as e:
         return 'Could not start {}: {}'.format(module, e)
 
-bottle.run(host='localhost', port=8080, debug=True)
+bottle.run(host='0.0.0.0', port=8080, debug=True)
