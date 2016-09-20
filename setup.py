@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 
+import codecs
+import os
 from setuptools import setup
+
+here = os.path.abspath(os.path.dirname(__file__))
+README = codecs.open(os.path.join(here, 'README'), encoding='utf8').read()
 
 setup (name = 'linkbot_hub_manager',
        author = 'David Ko',

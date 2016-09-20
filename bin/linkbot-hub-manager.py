@@ -11,6 +11,21 @@ def check(user, pw):
 @bottle.route('/')
 @bottle.auth_basic(check)
 def main_page():
+    try:
+        dpkg_status = subprocess.check_output(['dpkg', '-s', 'linkbotd']).decode()
+    except subprocess.CalledProcessError as e:
+        dpkg_status = 'Error code {}: {}'.format(e.returncode, e.output.decode())
+
+    try:
+        linkbotd_status = subprocess.check_output(['systemctl', 'status', 'linkbotd']).decode()
+    except subprocess.CalledProcessError as e:
+        linkbotd_status = 'Error code {}: {}'.format(e.returncode, e.output.decode())
+
+    try:
+        prex_status = subprocess.check_output(['systemctl', 'status', 'prex']).decode()
+    except subprocess.CalledProcessError as e:
+        prex_status = 'Error code {}: {}'.format(e.returncode, e.output.decode())
+        
     linkbotd_status = """
         <h1> Status </h1>
         <h2> linkbotd </h2>
@@ -23,17 +38,18 @@ def main_page():
         {}
         </pre>
     """.format(
-        subprocess.check_output(['dpkg', '-s', 'linkbotd']),
-        subprocess.check_output(['systemctl', 'status', 'linkbotd']).decode() )
+        dpkg_status,
+        linkbotd_status)
+
     prex_status = """
         <h2> prex </h2>
         <pre>
         {}
         </pre>
     """.format(
-        subprocess.check_output(['systemctl', 'status', 'prex']).decode() )
+        prex_status )
 
-    return linkbotd_status + """
+    return linkbotd_status + prex_status + """
         <h1> Change Password </h1>
         <form action="/change_password" method="post">
             New Password: <input name="password" type="password" />
