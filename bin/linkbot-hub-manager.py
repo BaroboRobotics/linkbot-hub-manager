@@ -58,6 +58,13 @@ def main_page():
         </form>
     """
 
+@bottle.post('/change_password')
+@bottle.auth_basic(check)
+def change_password():
+    return "Change password to {}:{}".format(
+        bottle.request.forms.get('password'),
+        bottle.request.forms.get('repeat_password') )
+
 @bottle.route('/<module>/<function>')
 @bottle.auth_basic(check)
 def handle_all(module, function):
