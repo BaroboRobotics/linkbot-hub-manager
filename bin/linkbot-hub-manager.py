@@ -37,6 +37,7 @@ def main_page():
         <form action="/linkbotd/start"> <input type="submit" value="Start" /> </form>
         <form action="/linkbotd/stop"> <input type="submit" value="Stop" /> </form>
         <form action="/linkbotd/restart"> <input type="submit" value="Restart" /> </form>
+        Note: Upgrade may take several minutes to complete. Please click on the link only once.
         <form action="/linkbotd/upgrade"> <input type="submit" value="Upgrade" /> </form>
         <form action="/linkbotd/logs"> <input type="submit" value="Logs" /> </form>
         <h3> Package Info </h3>
@@ -63,6 +64,7 @@ def main_page():
         <form action="/prex/start"> <input type="submit" value="Start" /> </form>
         <form action="/prex/stop"> <input type="submit" value="Stop" /> </form>
         <form action="/prex/restart"> <input type="submit" value="Restart" /> </form>
+        Note: Upgrade may take several minutes to complete. Please click on the link only once.
         <form action="/prex/upgrade"> <input type="submit" value="Upgrade" /> </form>
         <form action="/prex/logs"> <input type="submit" value="Logs" /> </form>
         <h3> Package Info </h3>
@@ -81,19 +83,21 @@ def main_page():
     pylinkbot_status = """
         <hr>
         <h2> PyLinkbot3 </h2>
+        Note: Upgrade may take several minutes to complete. Please click on the link only once.
         <form action="/pylinkbot3/upgrade"> <input type="submit" value="Upgrade" /> </form>
         <h3> Package Info </h3>
         <pre>{}</pre>
     """.format(pylinkbot_status)
 
     try:
-        liblinkbot_status = subprocess.check_output(['dpkg', '-s', 'liblinkbot'])
+        liblinkbot_status = subprocess.check_output(['dpkg', '-s', 'liblinkbot']).decode()
     except subprocess.CalledProcessError as e:
         liblinkbot_status = 'Error code {}: {}'.format(e.returncode, e.output.decode())
 
     liblinkbot_status = """
         <hr>
         <h2> liblinkbot </h2>
+        Note: Upgrade may take several minutes to complete. Please click on the link only once.
         <form action="/liblinkbot/upgrade"> <input type="submit" value="Upgrade" /> </form>
         <h3> Package Info </h3>
         <pre>{}</pre>
@@ -107,6 +111,7 @@ def main_page():
     firmware_status = """
         <hr>
         <h2> Linkbot Firmware </h2>
+        Note: Upgrade may take several minutes to complete. Please click on the link only once.
         <form action="/linkbot-firmware/upgrade"> <input type="submit" value="Upgrade" /> </form>
         <h3> Package Info </h3>
         <pre>{}</pre>
