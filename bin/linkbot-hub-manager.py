@@ -177,14 +177,14 @@ def handle_all(module, function):
 
     if function == 'reboot':
         try:
-            output = subprocess.check_output(['reboot'])
+            output = subprocess.check_output(['/sbin/reboot'])
             return 'OK'
         except Exception as e:
             return 'Could not restart {}: {}'.format(module, e)
 
     if function == 'shutdown':
         try:
-            output = subprocess.check_output(['shutdown', '-h', 'now'])
+            output = subprocess.check_output(['/sbin/shutdown', '-h', 'now'])
             return 'OK'
         except Exception as e:
             return 'Could not shutdown {}: {}'.format(module, e)
