@@ -33,6 +33,8 @@ def main_page():
 
     linkbotd_status = """
         <h1> Status </h1>
+        <form action="/system/reboot"> <input type="submit" value="Reboot" /> </form>
+        <form action="/system/shutdown"> <input type="submit" value="Shut down" /> </form>
         <h2> linkbotd </h2>
         <form action="/linkbotd/start"> <input type="submit" value="Start" /> </form>
         <form action="/linkbotd/stop"> <input type="submit" value="Stop" /> </form>
@@ -179,6 +181,13 @@ def handle_all(module, function):
             return 'OK'
         except Exception as e:
             return 'Could not restart {}: {}'.format(module, e)
+
+    if function == 'shutdown':
+        try:
+            output = subprocess.check_output(['shutdown', '-h', 'now'])
+            return 'OK'
+        except Exception as e:
+            return 'Could not shutdown {}: {}'.format(module, e)
 
     if function == 'upgrade':
         return handle_upgrade(module)
